@@ -31,11 +31,10 @@ int fact(int n)
 }
 int get_steps_recursion(int s, int sum, int i, int j)
 {
-	if (j == 0 || j == 1){
-		sum = sum + (fact(s) / (fact(j) * fact(i)));
-		return sum;
-	}
 	sum = sum + (fact(s) / (fact(j) * fact(i)));
+	if (j == 0 || j == 1)
+		return sum;
+	
 	return get_steps_recursion(s - 1, sum, i + 1, j - 2);
 }
 int get_steps(int s)
