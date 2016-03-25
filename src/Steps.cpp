@@ -23,8 +23,24 @@
 */
 #include "stdafx.h"
 
-
+int fact(int n)
+{
+	if (n == 0 || n == 1)
+		return 1;
+	return n * fact(n - 1);
+}
+int get_steps_recursion(int s, int sum, int i, int j)
+{
+	if (j == 0 || j == 1){
+		sum = sum + (fact(s) / (fact(j) * fact(i)));
+		return sum;
+	}
+	sum = sum + (fact(s) / (fact(j) * fact(i)));
+	return get_steps_recursion(s - 1, sum, i + 1, j - 2);
+}
 int get_steps(int s)
 {
-	return 0;
+	if (s == 0 || s == 1)
+		return s;
+	return get_steps_recursion(s, 0, 0, s);
 }

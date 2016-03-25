@@ -33,8 +33,42 @@ Note : Check the function Parameters ,Its a double pointer .
 
 #include "stdafx.h"
 #include<stdlib.h>
+int *spiral_recursion(int row, int column, int k, int l, int **input_array, int *output, int index)
+{
+	int i;
+	if (k < row && l < column){
+		for (i = l; i < column; ++i)
+			output[index++] = input_array[k][i];
+		k++;
 
+		for (i = k; i < row; ++i)
+			output[index++] = input_array[i][column - 1];
+		column--;
+
+		if (k < row)
+		{
+			for (i = column - 1; i >= l; --i)
+				output[index++] = input_array[row - 1][i];
+			row--;
+		}
+		if (l < column)
+		{
+			for (i = row - 1; i >= k; --i)
+				output[index++] = input_array[i][l];
+			l++;
+		}
+		spiral_recursion(row, column, k, l, input_array, output, index);
+
+	}
+	else
+		return output;
+}
 int *spiral(int rows, int columns, int **input_array)
 {
-	return NULL;
+	if (input_array == NULL || rows <= 0 || columns <= 0)
+		return NULL;
+	int *output;
+	output = (int *)malloc(sizeof(int) * rows * columns);
+	output = spiral_recursion(rows, columns, 0, 0, input_array, output, 0);
+	return output;
 }
